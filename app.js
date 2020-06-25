@@ -3,6 +3,8 @@ var app = express()
 var layout = require('./views/layout')
 const {db} = require('./models');
 const models = require('./models');
+const userRouter = require('./routes/user');
+const wikiRouter = require('./routes/wiki');
 
 db.authenticate().
 then(() => {
@@ -11,8 +13,11 @@ then(() => {
 
 app.use(express.urlencoded({ extended: false }));
 
+app.use('/wiki', wikiRouter);
+
+
 app.get('/', function (req, res) {
-    res.send(layout('hellow world'));
+    res.redirect('/wiki');
   })
   
 const PORT = 3000
